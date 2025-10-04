@@ -25,5 +25,3 @@ for img_path in images:                               #Xét từng ảnh
     cv2.imshow("Result", image)
     cv2.waitKey(0) 
     cv2.destroyAllWindows()
-
- 
