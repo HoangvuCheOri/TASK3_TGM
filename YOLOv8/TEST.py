@@ -1,4 +1,3 @@
-# webcam_count.py — YOLOv8 webcam (bản đơn giản)
 import time, cv2
 from ultralytics import YOLO
 import torch
@@ -7,10 +6,10 @@ def main():
     model_path = r"C:\YOLOTEST\runs\detect\train2\weights\last.pt"
     model = YOLO(model_path)
 
-    # chọn thiết bị
+    # Chọn thiết bị
     device = 0 if torch.cuda.is_available() else "cpu"
 
-    # mở webcam
+    # Mở webcam
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)   # đổi 0 -> 1/2 nếu cần
 
     t0, frames = time.time(), 0
@@ -21,13 +20,13 @@ def main():
         if not ok:
             print("[WARN] Không đọc được khung hình."); break
 
-        # suy luận 1 khung hình
+        # Suy luận frame
         res = model(frame, conf=0.5, imgsz=640, device=device, verbose=False)[0]
 
-        # vẽ bbox bằng tiện ích có sẵn
+        # Vẽ bbox
         vis = res.plot()
 
-        # đếm theo lớp (đơn giản)
+        # Đếm theo class
         counts = {}
         if res.boxes is not None and res.boxes.cls is not None:
             for c in res.boxes.cls.cpu().numpy().astype(int):
@@ -39,7 +38,7 @@ def main():
         dt = time.time() - t0
         fps = frames / dt if dt > 0 else 0.0
 
-        # overlay thông tin
+        # Overlay thông tin
         y = 24
         cv2.putText(vis, f"FPS: {fps:.1f}", (10, y),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 200, 0), 2)
@@ -56,4 +55,5 @@ def main():
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
+
     main()
