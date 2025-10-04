@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['Paper', 'Rock', 'Scissors']
+
+roboflow:
+  workspace: train-fruits-ttcgp
+  project: rock-paper-scissors-sxsw-h90al
+  version: 1
+  license: Private
+  url: https://universe.roboflow.com/train-fruits-ttcgp/rock-paper-scissors-sxsw-h90al/dataset/1
